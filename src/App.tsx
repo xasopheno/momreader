@@ -20,13 +20,18 @@ function App() {
     window.speechSynthesis.speak(msg)
   }
 
+  const containsSpecialCharacters = (str: string) => {
+    var regex = /[ !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/g
+    return regex.test(str)
+  }
+
   const is_number = (char: string) => {
     return !isNaN(parseInt(char))
   }
 
   const readText = () => {
     for (let char of text.split("")) {
-      if (!is_number(char)) {
+      if (!is_number(char) && !containsSpecialCharacters(char)) {
         if (char === char.toUpperCase()) {
           sayUppercase()
         } else {
